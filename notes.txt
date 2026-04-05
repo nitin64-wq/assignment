@@ -1,0 +1,24 @@
+1. What layout issues did I find?
+While working on the dashboard, I noticed a few layout problems.The sidebar was not aligned properly—it was appearing on top instead of sitting beside the main content.The header section looked messy because the title and navigation links were stacked vertically instead of being aligned in a single row.The cards were also not arranged properly—they were stacked one below another and had fixed (hardcoded) sizes.Also, there were too many inline styles, which made the HTML difficult to read and maintain.
+
+2. How did I fix them?
+To improve the layout and structure:I removed unnecessary inline styles and replaced them with proper CSS classes using a clean naming approach (like .dashboard-header, .dashboard-sidebar, etc.).I used Flexbox (display: flex) to align the sidebar and main content side-by-side.
+For the header, I applied justify-content: space-between to properly separate the title and navigation.
+For the cards section, I used flex-wrap: wrap so that cards adjust nicely across rows instead of stacking awkwardly.
+
+3. What was the JavaScript bug?
+There was a bug inside the loadData() function related to a loop.The loop was using var i = 0, which caused an issue with scope.
+Because of this, when setTimeout executed, it always referred to the final value of i.
+This resulted in data[i] becoming undefined.
+
+4. Why did it happen?
+The issue occurred because var is function-scoped, not block-scoped.
+The for loop finished execution very quickly, and by the time setTimeout callbacks ran, the value of i had already changed to data.length.
+So, all callbacks ended up using the same final value instead of their respective loop values.
+
+5. What improvements did I make?
+I made several improvements to enhance performance and usability.Fixed the loop issue by replacing it with .forEach() 
+Improved performance by avoiding repeated DOM updates using innerHTML +=. Instead, I used DocumentFragment and createElement().
+Added a "Loading..." state so users know data is being fetched.
+Implemented proper error handling using .catch() and showed errors in the UI instead of just logging them.
+Disabled the button while data is loading using .finally() to prevent multiple API calls.
